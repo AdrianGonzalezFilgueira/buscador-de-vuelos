@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulario de busqueda</title>
+    <script type="module" src="./main.js" defer></script>
+    <title>Formulario de búsqueda</title>
   </head>
   <body>
     <header>
@@ -15,8 +16,33 @@
       </h2>
     </header>
     <main>
-      <fieldset>Introduzca los criterios de búsqueda</fieldset>
-      <form action=""></form>
+      <section>
+        <form>
+          <fieldset>
+            <legend>Campos de búsqueda</legend>
+            <input
+              type="text"
+              id="origin"
+              placeholder="Introduzca el aeropuerto de salida"
+              maxlength="3"
+              pattern="[A-Z]{3}"
+              required
+            />
+            <input
+              type="text"
+              id="destination"
+              placeholder="Introduzca el aeropuerto de llegada"
+              maxlength="3"
+              pattern="[A-Z]{3}"
+              required
+            />
+            <button id="send">Enviar</button>
+          </fieldset>
+        </form>
+      </section>
+      <section>
+        <ul id="resultList"></ul>
+      </section>
     </main>
   </body>
 </html>
