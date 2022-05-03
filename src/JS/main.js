@@ -27,8 +27,8 @@ const form = document.querySelector("form");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   let locations = {
-    origin: document.querySelector("#origin").value,
-    destination: document.querySelector("#destination").value,
+    origin: document.querySelector("#origin").value.toUpperCase(),
+    destination: document.querySelector("#destination").value.toUpperCase(),
   };
   const cheapestFlight = await fetchApi(locations);
   const ul = document.querySelector("#resultList");
@@ -36,6 +36,8 @@ form.addEventListener("submit", async (e) => {
   li.innerHTML = `<article><p></p></article>`;
   ul.appendChild(li);
 });
+
+// Función asíncrona para solicitar la información requerida por nuestro usuario
 
 async function fetchApi(locations) {
   try {

@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="./JS/main.js" defer></script>
     <link rel="stylesheet" href="./CSS/style.css" />
-    <title>Formulario de búsqueda</title>
+    <title>Búsqueda urgente de vuelos</title>
   </head>
   <body>
     <header>
       <h1>Bienvenido al buscador urgente de vuelos</h1>
-      <h2>
-        Encuentre el vuelo más barato para el día siguiente entre dos
-        aeropuertos
-      </h2>
+      <h3>
+        Encuentre el vuelo más barato disponible el día siguiente, para una
+        persona, entre dos aeropuertos
+      </h3>
     </header>
     <main>
       <section>
@@ -24,28 +24,26 @@
             <input
               type="text"
               id="origin"
-              placeholder="Introduzca el aeropuerto de salida"
+              placeholder="Aeropuerto de salida"
               maxlength="3"
-              pattern="[A-Z]{3}"
+              pattern="[A-Z | a-z]{3}"
               required
             />
             <input
               type="text"
               id="destination"
-              placeholder="Introduzca el aeropuerto de llegada"
+              placeholder="Aeropuerto de llegada"
               maxlength="3"
-              pattern="[A-Z]{3}"
+              pattern="[A-Z | a-z]{3}"
               required
             />
-            <button id="send">Enviar</button>
+            <p>Introduzca un código de tres letras IATA en ambas casillas.</p>
+            <button id="send">Buscar</button>
           </fieldset>
         </form>
       </section>
       <section>
-        <fieldset>
-          <legend>Resultado de búsqueda</legend>
-          <ul id="resultList"></ul>
-        </fieldset>
+        <ul id="resultList"></ul>
       </section>
     </main>
   </body>
