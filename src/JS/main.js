@@ -22,14 +22,19 @@ async function fetchToken() {
   }
 }
 fetchToken();
+
 const form = document.querySelector("form");
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
   let locations = {
     origin: document.querySelector("#origin").value,
     destination: document.querySelector("#destination").value,
   };
-  fetchApi(locations);
+  const cheapestFlight = await fetchApi(locations);
+  const ul = document.querySelector("#resultList");
+  const li = document.createElement("li");
+  li.innerHTML = `<article><p></p></article>`;
+  ul.appendChild(li);
 });
 
 async function fetchApi(locations) {
@@ -42,9 +47,10 @@ async function fetchApi(locations) {
       }&departureDate=${currentDate()}&adults=1&nonStop=false&max=250`,
       { headers: { Authorization: `Bearer ${await fetchToken()}` } }
     );
-    const data = await response.json();
-    console.log(data);
+    const results = await response.json();
+    console.log(results.data[0]);
+    return results.data[0];
   } catch (error) {
-    console.log(error);
+    alert(error);
   }
 }

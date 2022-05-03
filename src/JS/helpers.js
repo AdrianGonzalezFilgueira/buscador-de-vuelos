@@ -9,17 +9,3 @@ export function currentDate() {
   const formatDate = sumDayFormat.split("/").reverse().join("-");
   return formatDate;
 }
-
-export function inputValues() {
-  const form = document.querySelector("form");
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    let locations = {
-      origin: document.querySelector("#origin").value,
-      destination: document.querySelector("#destination").value,
-    };
-    return locations;
-    /* origin = "";
-  destination = ""; */
-  });
-}
