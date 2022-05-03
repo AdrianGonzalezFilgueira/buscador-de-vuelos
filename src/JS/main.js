@@ -1,21 +1,40 @@
-// Guardamos la dirección de llamada a la API en una variable
-const apiUrl = "https://test.api.amadeus.com/v2/shopping/flight-offers";
+"use strict";
 
-// Creamos una función asíncrona
-async function fetchApi() {
-  // Envolvemos su funcionalidad en un try para poder realizar un catch al final y lanzar un aviso en caso de error
+// Función asíncrona para solicitar el token de acceso para la API
+async function fetchToken() {
   try {
-    // Llamamos a la API con un fetch, y añadimos la autorización (token) que previamente conseguimos
-    const response = await fetch(apiUrl, {
-      headers: { Authorization: "Bearer dAZsBb1ARKsSpraJUgygqzcA8vV6" },
-    });
-    //Recibimos los datos de la API y los almacenamos en una variable
-    const data = await response.json();
-    console.log(data);
+    const responseToken = await fetch(
+      "https://test.api.amadeus.com/v1/security/oauth2/token",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: "grant_type=client_credentials&client_id=DzFz6xgx71Nr8B1hOi2BUjZHxVFGCcb4&client_secret=n0fSOjZX4L1PNBKq",
+      }
+    );
+    const dataToken = await responseToken.json();
+    const token = dataToken.access_token;
+    return token;
   } catch (error) {
-    // Manejamos los posibles errores con un catch
     console.log(error);
   }
 }
 
+async function fetchApi() {
+  try {
+    const response = await fetch(
+      "https://test.api.amadeus.com/v2/shopping/flight-offers",
+      {
+        headers: { Authorization: `Bearer ${await fetchToken()}` },
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+fetchToken();
 fetchApi();
