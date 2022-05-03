@@ -21,35 +21,30 @@ async function fetchToken() {
     console.log(error);
   }
 }
-function inputValues() {}
+fetchToken();
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let locations = {
+    origin: document.querySelector("#origin").value,
+    destination: document.querySelector("#destination").value,
+  };
+  fetchApi(locations);
+});
 
-async function fetchApi() {
+async function fetchApi(locations) {
   try {
-    const form = document.querySelector("form");
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      let locations = {
-        origin: document.querySelector("#origin").value,
-        destination: document.querySelector("#destination").value,
-      };
-      /* origin = "";
-  destination = ""; */
-
-  const response = await fetch(
-    `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${
-      locations.origin
-    }&destinationLocationCode=${
-      locations.destination
-    }&departureDate=${currentDate()}&adults=1&nonStop=false&max=250`,
-    { headers: { Authorization: `Bearer ${await fetchToken()}` } }
-  );
-  const data = await response.json();
-  console.log(data);
-    });
+    const response = await fetch(
+      `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${
+        locations.origin
+      }&destinationLocationCode=${
+        locations.destination
+      }&departureDate=${currentDate()}&adults=1&nonStop=false&max=250`,
+      { headers: { Authorization: `Bearer ${await fetchToken()}` } }
+    );
+    const data = await response.json();
+    console.log(data);
   } catch (error) {
     console.log(error);
   }
 }
-
-fetchToken();
-fetchApi();
