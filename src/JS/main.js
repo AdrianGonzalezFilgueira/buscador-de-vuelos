@@ -23,6 +23,31 @@ async function fetchToken() {
 }
 fetchToken();
 
+const form = document.querySelector("form");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  let locations = {
+    origin: document.querySelector("#origin").value.toUpperCase(),
+    destination: document.querySelector("#destination").value.toUpperCase(),
+  };
+  const gallery = document.querySelector("#flightGallery");
+  const loader = document.createElement("div");
+  loader.classList.add("lds-ellipsis");
+  loader.innerHTML = "<div></div><div></div><div></div><div></div>";
+  gallery.appendChild(loader);
+  const ul = document.querySelector("#resultList");
+  if (ul.firstChild) {
+    ul.firstChild.remove();
+  }
+  const cheapestFlight = await fetchApi(locations);
+
+  const li = document.createElement("li");
+  li.classList.add("flightArticle");
+  li.innerHTML = `<article><p>a</p></article>`;
+  loader.remove();
+  ul.appendChild(li);
+});
+
 // Función asíncrona para solicitar la información requerida por nuestro usuario
 
 export async function fetchApi(locations) {
