@@ -62,7 +62,7 @@ form.addEventListener('submit', async (e) => {
 
 // Función asíncrona para solicitar la información requerida por nuestro usuario
 
-async function fetchApi(locations) {
+export async function fetchApi(locations) {
   try {
     const response = await fetch(
       `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${

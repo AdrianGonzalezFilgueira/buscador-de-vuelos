@@ -1,5 +1,9 @@
-#resultList {
+/*#resultList {  
   list-style: none;
+}*/
+
+input:not(:placeholder-shown):not(:focus):invalid {
+  border: 2px solid red;
 }
 
 #flightGallery {
