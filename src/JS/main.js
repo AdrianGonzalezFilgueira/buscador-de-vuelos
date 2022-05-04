@@ -43,7 +43,7 @@ form.addEventListener("submit", async (e) => {
 
   const li = document.createElement("li");
   li.classList.add("flightArticle");
-  li.innerHTML = `<article><p>a</p></article>`;
+  li.innerHTML = `<article><p></p></article>`;
   loader.remove();
   ul.appendChild(li);
 });

@@ -9,7 +9,6 @@ form.addEventListener("submit", async (e) => {
     destination: document.querySelector("#destination").value.toUpperCase(),
   };
   const cheapestFlight = await fetchApi(locations);
-  console.log(cheapestFlight);
   const { itineraries } = cheapestFlight;
 
   let arrivalAt = [];
