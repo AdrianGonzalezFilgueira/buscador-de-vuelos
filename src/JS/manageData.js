@@ -25,47 +25,6 @@ form.addEventListener("submit", async (e) => {
 
   // Fetch a la api usando la función exportada
   const cheapestFlight = await fetchApi(locations);
-  // Desestructuración de los datos recibidos
-  const { itineraries, price, pricingOptions, travelerPricings } =
-    cheapestFlight;
-
-  //Declaración de variables para almacenar los datos que vamos a tratar
-  let customizedResult = {
-    arrivalAt: "[]",
-    departureAt: "[]",
-    carrierCode: "",
-    duration: "",
-    numberOfStops: "",
-    numberOfBookableSeats: cheapestFlight.numberOfBookableSeats,
-    totalPrice: price.total,
-    oneWay: cheapestFlight.oneWay,
-    currency: price.currency,
-    includedCheckedBagsOnly: pricingOptions.includedCheckedBagsOnly,
-    fareOption: "",
-    cabin: "",
-    typeOfClass: "",
-  };
-
-  //Bucles y recogida de datos
-  for (const itinerary of itineraries) {
-    const { segments } = itinerary;
-    for (const segment of segments) {
-      customizedResult.arrivalAt = segment.arrival.at;
-      customizedResult.departureAt = segment.departure.at;
-      customizedResult.carrierCode = segment.carrierCode;
-      customizedResult.duration = segment.duration;
-      customizedResult.numberOfStops = segment.numberOfStops;
-    }
-  }
-
-  for (const travel of travelerPricings) {
-    customizedResult.fareOption = travel.fareOption;
-    const { fareDetailsBySegment } = travel;
-    for (const fareDetailBySegment of fareDetailsBySegment) {
-      customizedResult.cabin = fareDetailBySegment.cabin;
-      customizedResult.typeOfClass = fareDetailBySegment.class;
-    }
-  }
 
   // Tratamiento de errores
   if (cheapestFlight === undefined) {
@@ -75,6 +34,47 @@ form.addEventListener("submit", async (e) => {
       "<h2>Parece que no existen vuelos para los códigos introducidos</h2>";
     ul.appendChild(error);
   } else {
+    // Desestructuración de los datos recibidos
+    const { itineraries, price, pricingOptions, travelerPricings } =
+      cheapestFlight;
+
+    //Declaración de variables para almacenar los datos que vamos a tratar
+    let customizedResult = {
+      arrivalAt: "[]",
+      departureAt: "[]",
+      carrierCode: "",
+      duration: "",
+      numberOfStops: "",
+      numberOfBookableSeats: cheapestFlight.numberOfBookableSeats,
+      totalPrice: price.total,
+      oneWay: cheapestFlight.oneWay,
+      currency: price.currency,
+      includedCheckedBagsOnly: pricingOptions.includedCheckedBagsOnly,
+      fareOption: "",
+      cabin: "",
+      typeOfClass: "",
+    };
+
+    //Bucles y recogida de datos
+    for (const itinerary of itineraries) {
+      const { segments } = itinerary;
+      for (const segment of segments) {
+        customizedResult.arrivalAt = segment.arrival.at;
+        customizedResult.departureAt = segment.departure.at;
+        customizedResult.carrierCode = segment.carrierCode;
+        customizedResult.duration = segment.duration;
+        customizedResult.numberOfStops = segment.numberOfStops;
+      }
+    }
+
+    for (const travel of travelerPricings) {
+      customizedResult.fareOption = travel.fareOption;
+      const { fareDetailsBySegment } = travel;
+      for (const fareDetailBySegment of fareDetailsBySegment) {
+        customizedResult.cabin = fareDetailBySegment.cabin;
+        customizedResult.typeOfClass = fareDetailBySegment.class;
+      }
+    }
     // Creación de li en caso de que no haya errores
     const li = document.createElement("li");
     li.classList.add("flightArticle");
