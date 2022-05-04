@@ -26,23 +26,44 @@ form.addEventListener("submit", async (e) => {
   // Fetch a la api usando la función exportada
   const cheapestFlight = await fetchApi(locations);
   // Desestructuración de los datos recibidos
-  const { itineraries } = cheapestFlight;
+  const { itineraries, price, pricingOptions, travelerPricings } =
+    cheapestFlight;
+
   //Declaración de variables para almacenar los datos que vamos a tratar
-  let arrivalAt = [];
-  let departureAt = [];
-  let carrierCode = "";
-  let duration = "";
-  let numberOfStops = "";
+  let customizedResult = {
+    arrivalAt: "[]",
+    departureAt: "[]",
+    carrierCode: "",
+    duration: "",
+    numberOfStops: "",
+    numberOfBookableSeats: cheapestFlight.numberOfBookableSeats,
+    totalPrice: price.total,
+    oneWay: cheapestFlight.oneWay,
+    currency: price.currency,
+    includedCheckedBagsOnly: pricingOptions.includedCheckedBagsOnly,
+    fareOption: "",
+    cabin: "",
+    typeOfClass: "",
+  };
 
   //Bucles y recogida de datos
   for (const itinerary of itineraries) {
     const { segments } = itinerary;
     for (const segment of segments) {
-      arrivalAt.push(segment.arrival.at);
-      departureAt.push(segment.departure.at);
-      carrierCode = segment.carrierCode;
-      duration = segment.duration;
-      numberOfStops = segment.numberOfStops;
+      customizedResult.arrivalAt = segment.arrival.at;
+      customizedResult.departureAt = segment.departure.at;
+      customizedResult.carrierCode = segment.carrierCode;
+      customizedResult.duration = segment.duration;
+      customizedResult.numberOfStops = segment.numberOfStops;
+    }
+  }
+
+  for (const travel of travelerPricings) {
+    customizedResult.fareOption = travel.fareOption;
+    const { fareDetailsBySegment } = travel;
+    for (const fareDetailBySegment of fareDetailsBySegment) {
+      customizedResult.cabin = fareDetailBySegment.cabin;
+      customizedResult.typeOfClass = fareDetailBySegment.class;
     }
   }
 
@@ -62,12 +83,22 @@ form.addEventListener("submit", async (e) => {
 
     //Mostrar resultados
     li.innerHTML = `<article><p>
-    Código de aerolínea:${carrierCode},
-    Llegada:${arrivalAt},
-    Salida:${departureAt},
-    Duración del vuelo: ${duration},
-    Número de paradas:${numberOfStops}
+    Código de aerolínea:${customizedResult.carrierCode},
+    Llegada:${customizedResult.arrivalAt},
+    Salida:${customizedResult.departureAt},
+    Duración del vuelo: ${customizedResult.duration},
+    Número de paradas:${customizedResult.numberOfStops}, 
+    Número de asientos disponibles:${customizedResult.numberOfBookableSeats},
+    Trayecto: ${customizedResult.oneWay ? "Sólo ida" : "Ida y vuelta"},
+    PRECIO FINAL: ${customizedResult.totalPrice} ${customizedResult.currency},
+    ¿Registro de maletas incluido?:${
+      customizedResult.includedCheckedBagsOnly ? "Incluído" : "No incluído"
+    },
+    Tarifa:${customizedResult.fareOption},
+    Cabina:${customizedResult.cabin}
+    Clase:${customizedResult.typeOfClass}
     </p></article>`;
+
     ul.appendChild(li);
   }
 });
