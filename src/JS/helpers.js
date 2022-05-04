@@ -1,3 +1,4 @@
+// Exportamos la función que nos permite dar el formato de fecha deseado
 export function currentDate() {
   const date = new Date();
   const sumDay = date.setDate(date.getDate() + 1);
