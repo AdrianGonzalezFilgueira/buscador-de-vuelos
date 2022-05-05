@@ -97,6 +97,13 @@ strong {
   margin: 5px;
 }
 
+.error {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
 .lds-ellipsis {
   display: inline-block;
   position: relative;
