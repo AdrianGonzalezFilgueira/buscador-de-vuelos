@@ -34,7 +34,7 @@ form.addEventListener("submit", async (e) => {
       loader.remove();
       const error = document.createElement("li");
       error.innerHTML =
-        "<h2>Parece que no existen vuelos para los códigos introducidos</h2>";
+        "<h2 class='error'>Parece que no existen vuelos para los códigos introducidos</h2>";
       ul.appendChild(error);
     } else {
       // Desestructuración del vuelo más barato recibido
@@ -78,33 +78,35 @@ form.addEventListener("submit", async (e) => {
           customizedResult.typeOfClass = fareDetailBySegment.class;
         }
       }
-      // Creación del "li", elemento donde mostraremos los resultados
+      // Creación de li en caso de que no haya errores
       const li = document.createElement("li");
       li.classList.add("flightArticle");
-      //Eliminamos la animación de espera
+      //Eliminar animación de espera
       loader.remove();
 
       //Mostrar resultados
       li.innerHTML = `<article><p>
-        Código de aerolínea:${customizedResult.carrierCode},
-        Llegada:${customizedResult.arrivalAt},
-        Salida:${customizedResult.departureAt},
-        Duración del vuelo: ${customizedResult.duration},
-        Número de paradas:${customizedResult.numberOfStops}, 
-        Número de asientos disponibles:${
-          customizedResult.numberOfBookableSeats
-        },
-        Trayecto: ${customizedResult.oneWay ? "Sólo ida" : "Ida y vuelta"},
-        PRECIO FINAL: ${customizedResult.totalPrice} ${
+    Código de aerolínea: ${customizedResult.carrierCode}</p>
+    <p>Salida: ${customizedResult.departureAt}</p>
+    <p>Llegada: ${customizedResult.arrivalAt}</p>
+    <p>Duración del vuelo: ${customizedResult.duration}</p>
+    <p>Número de paradas: ${customizedResult.numberOfStops}</p>
+    <p>Número de asientos disponibles: ${
+      customizedResult.numberOfBookableSeats
+    }</p>
+    <p>Trayecto: ${customizedResult.oneWay ? "Sólo ida" : "Ida y vuelta"}</p>
+    <p>
+    Registro de maletas incluido: ${
+      customizedResult.includedCheckedBagsOnly ? "Sí" : "No"
+    }
+    </p>
+    <p>Tarifa: ${customizedResult.fareOption}</p>
+    <p>Cabina: ${customizedResult.cabin}</p>
+    <p>Clase: ${customizedResult.typeOfClass}</p>
+    <strong>PRECIO FINAL: ${customizedResult.totalPrice} ${
         customizedResult.currency
-      },
-        ¿Registro de maletas incluido?:${
-          customizedResult.includedCheckedBagsOnly ? "Incluído" : "No incluído"
-        },
-        Tarifa:${customizedResult.fareOption},
-        Cabina:${customizedResult.cabin}
-        Clase:${customizedResult.typeOfClass}
-        </p></article>`;
+      }</strong>
+    </article>`;
       ul.appendChild(li);
     }
   } catch (error) {
