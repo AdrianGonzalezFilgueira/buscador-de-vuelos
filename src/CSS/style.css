@@ -1,5 +1,7 @@
+/* Importación de la fuente de letra */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
 
+/* Estilos generales */
 * {
   padding: 0;
   margin: 0;
@@ -14,16 +16,13 @@ body {
   background-position: center;
   font-family: "Roboto", sans-serif;
 }
-#resultList {
-  list-style: none;
-}
 
 header {
   text-align: center;
   background-color: white;
   padding: 2%;
 }
-
+/* Formulario y sus inputs */
 form > fieldset {
   padding: 15px;
   padding-right: 20%;
@@ -75,6 +74,7 @@ input:not(:placeholder-shown):not(:focus):invalid {
   border: 2px solid red;
 }
 
+/* Resultado de búsqueda */
 #flightGallery {
   margin-top: 15vh;
   display: flex;
@@ -97,6 +97,11 @@ strong {
   margin: 5px;
 }
 
+#resultList {
+  list-style: none;
+}
+
+/* Mensaje de error */
 .error {
   background-color: white;
   padding: 15px;
@@ -105,6 +110,7 @@ strong {
   box-shadow: 0px 10px 20px -7px #0000008a;
 }
 
+/* Animación de tiempo de carga (loader) */
 .lds-ellipsis {
   display: inline-block;
   position: relative;

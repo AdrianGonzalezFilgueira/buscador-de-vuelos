@@ -64,8 +64,8 @@ form.addEventListener("submit", async (e) => {
       //Mostrar resultados
       li.innerHTML = `<article><p>
       Código de aerolínea: ${customizedResult.carrierCode}</p>
-      <p>Salida: ${customizedResult.departureAt}</p>
-      <p>Llegada: ${customizedResult.arrivalAt}</p>
+      <p>Salida: ${customizedResult.departureAt.split("T").join(" Hora: ")}</p>
+      <p>Llegada: ${customizedResult.arrivalAt.split("T").join(" Hora: ")}</p>
       <p>Duración del vuelo: ${customizedResult.duration}</p>
       <p>Número de paradas: ${customizedResult.numberOfStops}</p>
       <p>Número de asientos disponibles: ${
