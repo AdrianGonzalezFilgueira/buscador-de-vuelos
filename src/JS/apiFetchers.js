@@ -26,10 +26,11 @@ async function fetchToken() {
 }
 fetchToken();
 
+export let response;
 // Función asíncrona para solicitar la información requerida por nuestro usuario
 export async function fetchApi(locations) {
   try {
-    const response = await fetch(
+    response = await fetch(
       `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${
         locations.origin
       }&destinationLocationCode=${

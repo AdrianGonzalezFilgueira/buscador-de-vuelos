@@ -1,6 +1,6 @@
 "use strict";
 // Importación de la función asíncrona para solicitar la información requerida por nuestro usuario
-import { fetchApi } from "./apiFetchers.js";
+import { fetchApi, response } from "./apiFetchers.js";
 
 // Selector del form
 const form = document.querySelector("form");
@@ -28,13 +28,18 @@ form.addEventListener("submit", async (e) => {
 
     // Fetch a la api usando la función exportada (nos devuelve el resultado más barato de la búsqueda)
     const cheapestFlight = await fetchApi(locations);
-
-    // Tratamiento de error undefined (un valor introducido en el form es incorrecto)
-    if (cheapestFlight === undefined) {
+    // Tratamiento de error undefined (un valor introducido en el form es incorrecto) y el 400 (ambos datos incorrectos, bad request)
+    if (cheapestFlight === undefined || response.status === 400) {
       loader.remove();
       const error = document.createElement("li");
       error.innerHTML =
         "<h2 class='error'>Parece que no existen vuelos para los códigos introducidos</h2>";
+      ul.appendChild(error);
+    } else if (response.status === 500) {
+      loader.remove();
+      const error = document.createElement("li");
+      error.innerHTML =
+        "<h2 class='error'>Error de conexión, inténtalo de nuevo</h2>";
       ul.appendChild(error);
     } else {
       // Desestructuración del vuelo más barato recibido
