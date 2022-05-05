@@ -4,10 +4,11 @@ import { fetchApi } from "./apiFetchers.js";
 
 // Selector del form
 const form = document.querySelector("form");
-// Añadimos evento 'click' del form
+// Añadimos evento 'submit' del form
 form.addEventListener("submit", async (e) => {
+  // Evitamos el comportamiento por defecto del form
   e.preventDefault();
-  //Seleccionamos los valores introducidos por el usuario (origen y destino del vuelo)
+  //Seleccionamos los valores introducidos por el usuario (origen y destino del vuelo) y los convertimos siempre a mayúscula (necesario código IATA)
   let locations = {
     origin: document.querySelector("#origin").value.toUpperCase(),
     destination: document.querySelector("#destination").value.toUpperCase(),
@@ -38,7 +39,7 @@ form.addEventListener("submit", async (e) => {
     const { itineraries, price, pricingOptions, travelerPricings } =
       cheapestFlight;
 
-    //Declaración de variables para almacenar los datos que vamos a tratar
+    // Objeto donde almacenamos los datos que queremos mostrar al usuario
     let customizedResult = {
       arrivalAt: "[]",
       departureAt: "[]",

@@ -1,4 +1,5 @@
 "use strict";
+// Importamos la función (que nos devuelve la fecha) para su uso en el fetch de la api
 import { currentDate } from "./helpers.js";
 
 // Función asíncrona para solicitar el token de acceso para la API
@@ -6,6 +7,8 @@ async function fetchToken() {
   try {
     const responseToken = await fetch(
       "https://test.api.amadeus.com/v1/security/oauth2/token",
+
+      //En este segundo argumento, se le pasan los datos necesarios para poder solicitar el token.
       {
         method: "POST",
         headers: {
@@ -24,7 +27,6 @@ async function fetchToken() {
 fetchToken();
 
 // Función asíncrona para solicitar la información requerida por nuestro usuario
-
 export async function fetchApi(locations) {
   try {
     const response = await fetch(
@@ -37,6 +39,7 @@ export async function fetchApi(locations) {
     );
     const results = await response.json();
     console.log(results.data[0]);
+    //Devolvemos el primer resultado, que siempre es el más económico
     return results.data[0];
   } catch (error) {
     alert(error);
