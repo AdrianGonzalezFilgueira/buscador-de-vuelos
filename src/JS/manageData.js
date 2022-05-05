@@ -1,26 +1,26 @@
-"use strict";
+'use strict';
 // Importación de la función asíncrona para solicitar la información requerida por nuestro usuario
-import { fetchApi } from "./apiFetchers.js";
+import { fetchApi } from './apiFetchers.js';
 
 // Selector del form
-const form = document.querySelector("form");
+const form = document.querySelector('form');
 // Añadimos evento 'click' del form
-form.addEventListener("submit", async (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
   //Seleccionamos los valores introducidos por el usuario (origen y destino del vuelo)
   let locations = {
-    origin: document.querySelector("#origin").value.toUpperCase(),
-    destination: document.querySelector("#destination").value.toUpperCase(),
+    origin: document.querySelector('#origin').value.toUpperCase(),
+    destination: document.querySelector('#destination').value.toUpperCase(),
   };
   // Creación de animación de espera
-  const gallery = document.querySelector("#flightGallery");
-  const ul = document.querySelector("#resultList");
+  const gallery = document.querySelector('#flightGallery');
+  const ul = document.querySelector('#resultList');
   if (ul.firstChild) {
     ul.firstChild.remove();
   }
-  const loader = document.createElement("div");
-  loader.classList.add("lds-ellipsis");
-  loader.innerHTML = "<div></div><div></div><div></div><div></div>";
+  const loader = document.createElement('div');
+  loader.classList.add('lds-ellipsis');
+  loader.innerHTML = '<div></div><div></div><div></div><div></div>';
   gallery.appendChild(loader);
 
   // Fetch a la api usando la función exportada
@@ -29,9 +29,9 @@ form.addEventListener("submit", async (e) => {
   // Tratamiento de errores
   if (cheapestFlight === undefined) {
     loader.remove();
-    const error = document.createElement("li");
+    const error = document.createElement('li');
     error.innerHTML =
-      "<h2>Parece que no existen vuelos para los códigos introducidos</h2>";
+      '<h2>Parece que no existen vuelos para los códigos introducidos</h2>';
     ul.appendChild(error);
   } else {
     // Desestructuración de los datos recibidos
@@ -40,19 +40,19 @@ form.addEventListener("submit", async (e) => {
 
     //Declaración de variables para almacenar los datos que vamos a tratar
     let customizedResult = {
-      arrivalAt: "[]",
-      departureAt: "[]",
-      carrierCode: "",
-      duration: "",
-      numberOfStops: "",
+      arrivalAt: '[]',
+      departureAt: '[]',
+      carrierCode: '',
+      duration: '',
+      numberOfStops: '',
       numberOfBookableSeats: cheapestFlight.numberOfBookableSeats,
       totalPrice: price.total,
       oneWay: cheapestFlight.oneWay,
       currency: price.currency,
       includedCheckedBagsOnly: pricingOptions.includedCheckedBagsOnly,
-      fareOption: "",
-      cabin: "",
-      typeOfClass: "",
+      fareOption: '',
+      cabin: '',
+      typeOfClass: '',
     };
 
     //Bucles y recogida de datos
@@ -76,28 +76,34 @@ form.addEventListener("submit", async (e) => {
       }
     }
     // Creación de li en caso de que no haya errores
-    const li = document.createElement("li");
-    li.classList.add("flightArticle");
+    const li = document.createElement('li');
+    li.classList.add('flightArticle');
     //Eliminar animación de espera
     loader.remove();
 
     //Mostrar resultados
     li.innerHTML = `<article><p>
-    Código de aerolínea:${customizedResult.carrierCode},
-    Llegada:${customizedResult.arrivalAt},
-    Salida:${customizedResult.departureAt},
-    Duración del vuelo: ${customizedResult.duration},
-    Número de paradas:${customizedResult.numberOfStops}, 
-    Número de asientos disponibles:${customizedResult.numberOfBookableSeats},
-    Trayecto: ${customizedResult.oneWay ? "Sólo ida" : "Ida y vuelta"},
-    PRECIO FINAL: ${customizedResult.totalPrice} ${customizedResult.currency},
-    ¿Registro de maletas incluido?:${
-      customizedResult.includedCheckedBagsOnly ? "Incluído" : "No incluído"
-    },
-    Tarifa:${customizedResult.fareOption},
-    Cabina:${customizedResult.cabin}
-    Clase:${customizedResult.typeOfClass}
-    </p></article>`;
+    Código de aerolínea: ${customizedResult.carrierCode}</p>
+    <p>Salida: ${customizedResult.departureAt}</p>
+    <p>Llegada: ${customizedResult.arrivalAt}</p>
+    <p>Duración del vuelo: ${customizedResult.duration}</p>
+    <p>Número de paradas: ${customizedResult.numberOfStops}</p>
+    <p>Número de asientos disponibles: ${
+      customizedResult.numberOfBookableSeats
+    }</p>
+    <p>Trayecto: ${customizedResult.oneWay ? 'Sólo ida' : 'Ida y vuelta'}</p>
+    <p>
+    Registro de maletas incluido: ${
+      customizedResult.includedCheckedBagsOnly ? 'Sí' : 'No'
+    }
+    </p>
+    <p>Tarifa: ${customizedResult.fareOption}</p>
+    <p>Cabina: ${customizedResult.cabin}</p>
+    <p>Clase: ${customizedResult.typeOfClass}</p>
+    <strong>PRECIO FINAL: ${customizedResult.totalPrice} ${
+      customizedResult.currency
+    }</strong>
+    </article>`;
 
     ul.appendChild(li);
   }

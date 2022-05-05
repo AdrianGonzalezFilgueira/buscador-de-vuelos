@@ -10,7 +10,7 @@
   </head>
   <body>
     <header>
-      <h1>Bienvenido al buscador urgente de vuelos</h1>
+      <h1>Busca-Vuelos</h1>
       <h3>
         Encuentre el vuelo más barato disponible el día siguiente, para una
         persona, entre dos aeropuertos
@@ -20,7 +20,8 @@
       <section>
         <form>
           <fieldset>
-            <legend>Campos de búsqueda</legend>
+            <!--<legend>Campos de búsqueda</legend>-->
+            <p>Introduzca un código de tres letras IATA en ambas casillas.</p>
             <input
               type="text"
               id="origin"
@@ -37,7 +38,6 @@
               pattern="[A-Z | a-z]{3}"
               required
             />
-            <p>Introduzca un código de tres letras IATA en ambas casillas.</p>
             <button id="send">Buscar</button>
           </fieldset>
         </form>
