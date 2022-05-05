@@ -9,6 +9,10 @@ form.addEventListener("submit", async (e) => {
   try {
     // Evitamos el comportamiento por defecto del form
     e.preventDefault();
+    //Seleccionamos y deshabilitamos el botón hasta que el resultado esté listo
+    const buttonSend = document.querySelector("#send");
+    buttonSend.disabled = true;
+
     //Seleccionamos los valores introducidos por el usuario (origen y destino del vuelo) y los convertimos siempre a mayúscula (necesario para código IATA)
     let locations = {
       origin: document.querySelector("#origin").value.toUpperCase(),
@@ -91,29 +95,31 @@ form.addEventListener("submit", async (e) => {
 
       //Mostrar resultados
       li.innerHTML = `<article><p>
-    Código de aerolínea: ${customizedResult.carrierCode}</p>
-    <p>Salida: ${customizedResult.departureAt}</p>
-    <p>Llegada: ${customizedResult.arrivalAt}</p>
-    <p>Duración del vuelo: ${customizedResult.duration}</p>
-    <p>Número de paradas: ${customizedResult.numberOfStops}</p>
-    <p>Número de asientos disponibles: ${
-      customizedResult.numberOfBookableSeats
-    }</p>
-    <p>Trayecto: ${customizedResult.oneWay ? "Sólo ida" : "Ida y vuelta"}</p>
-    <p>
-    Registro de maletas incluido: ${
-      customizedResult.includedCheckedBagsOnly ? "Sí" : "No"
-    }
-    </p>
-    <p>Tarifa: ${customizedResult.fareOption}</p>
-    <p>Cabina: ${customizedResult.cabin}</p>
-    <p>Clase: ${customizedResult.typeOfClass}</p>
-    <strong>PRECIO FINAL: ${customizedResult.totalPrice} ${
+      Código de aerolínea: ${customizedResult.carrierCode}</p>
+      <p>Salida: ${customizedResult.departureAt}</p>
+      <p>Llegada: ${customizedResult.arrivalAt}</p>
+      <p>Duración del vuelo: ${customizedResult.duration}</p>
+      <p>Número de paradas: ${customizedResult.numberOfStops}</p>
+      <p>Número de asientos disponibles: ${
+        customizedResult.numberOfBookableSeats
+      }</p>
+      <p>Trayecto: ${customizedResult.oneWay ? "Sólo ida" : "Ida y vuelta"}</p>
+      <p>
+      Registro de maletas incluido: ${
+        customizedResult.includedCheckedBagsOnly ? "Sí" : "No"
+      }
+      </p>
+      <p>Tarifa: ${customizedResult.fareOption}</p>
+      <p>Cabina: ${customizedResult.cabin}</p>
+      <p>Clase: ${customizedResult.typeOfClass}</p>
+      <strong>PRECIO FINAL: ${customizedResult.totalPrice} ${
         customizedResult.currency
       }</strong>
-    </article>`;
+      </article>`;
       ul.appendChild(li);
     }
+    // Habilitamos de nuevo el botón tras los resultados
+    buttonSend.disabled = false;
   } catch (error) {
     console.log(error);
   }

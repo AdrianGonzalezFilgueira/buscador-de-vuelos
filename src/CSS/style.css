@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
 
 * {
   padding: 0;
@@ -8,11 +8,11 @@
 
 body {
   height: 100vh;
-  background: url(../../world-physical-map-blank-mercator-large.jpg);
+  background: url(../img/world-physical-map-blank-mercator-large.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 #resultList {
   list-style: none;
