@@ -14,3 +14,16 @@ export function currentDate() {
   const formatDate = sumDayFormat.split("/").reverse().join("-");
   return formatDate;
 }
+
+// Exportamos la función que crea una animación de carga
+/* export function loader() {
+  const gallery = document.querySelector("#flightGallery");
+  const ul = document.querySelector("#resultList");
+  if (ul.firstChild) {
+    ul.firstChild.remove();
+  }
+  const loader = document.createElement("div");
+  loader.classList.add("lds-ellipsis");
+  loader.innerHTML = "<div></div><div></div><div></div><div></div>";
+  gallery.appendChild(loader);
+} */

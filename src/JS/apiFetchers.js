@@ -39,9 +39,9 @@ export async function fetchApi(locations) {
     );
     const results = await response.json();
     console.log(results.data[0]);
-    //Devolvemos el primer resultado, que siempre es el más económico
     return results.data[0];
+    // Catch de errores
   } catch (error) {
-    alert(error);
+    console.log(error);
   }
 }
