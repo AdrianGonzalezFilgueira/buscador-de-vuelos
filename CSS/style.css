@@ -34,7 +34,6 @@ form > fieldset {
   border: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-color: rgb(88, 99, 255);
   color: white;
 }
@@ -170,5 +169,13 @@ strong {
   }
   100% {
     transform: translate(24px, 0);
+  }
+}
+
+@media (max-width: 500px) {
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
